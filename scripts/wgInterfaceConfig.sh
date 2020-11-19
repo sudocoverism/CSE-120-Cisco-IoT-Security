@@ -1,4 +1,4 @@
-if#! /usr/bin/env bash
+#! /usr/bin/env bash
 # linux command line script to install in the etc folder of the Server's root directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" ) >/")"
 
