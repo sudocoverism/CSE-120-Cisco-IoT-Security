@@ -10,7 +10,8 @@ function rootCheck {
 function dependencyInsttall {
   apt-get update
 
-  dependencyName=(net-tools wireguard wireguard-tools original-awk libqrencode4))
+  dependencyName= (net-tools wireguard wireguard-tools original-awk libqrencode4 qrencode qt5-default pyqt5 build-essential)
+
 
   for i in "${dependencyName[@]}"
     do
