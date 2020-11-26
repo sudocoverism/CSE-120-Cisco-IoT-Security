@@ -7,10 +7,10 @@ function rootCheck {
   fi
 }
 
-function dependencyInsttall {
+function dependencyInstall {
   apt-get update
 
-  dependencyName=(net-tools wireguard wireguard-tools original-awk libqrencode4 qrencode qt5-default pyqt5 build-essential)
+  dependencyName=(net-tools wireguard wireguard-tools original-awk libqrencode4 qrencode qt5-default build-essential)
 
   for i in "${dependencyName[@]}"
     do
@@ -19,7 +19,20 @@ function dependencyInsttall {
   done
 }
 
+function pythonDependencyInstall {
+  apt-get update
+
+  pythonDependencyName=(pyqt5)
+
+  for i in "${dependencyName[@]}"
+    do
+      echo "PIP Installing $i"
+      pip3 install $i
+  done
+}
+
 
 rootCheck
-dependencyInsttall
+dependencyInstall
+pythonDependencyInstall
 exit
