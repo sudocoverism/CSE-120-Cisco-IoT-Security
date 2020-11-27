@@ -24,7 +24,7 @@ function pythonDependencyInstall {
 
   pythonDependencyName=(pyqt5)
 
-  for i in "${dependencyName[@]}"
+  for i in "${pythonDependencyName[@]}"
     do
       echo "PIP Installing $i"
       pip3 install $i
