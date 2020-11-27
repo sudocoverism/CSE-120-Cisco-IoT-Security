@@ -25,7 +25,7 @@ function pythonDependencyUninstall {
 
   pythonDependencyName=(pyqt5)
 
-  for i in "${dependencyName[@]}"
+  for i in "${pythonDependencyName[@]}"
     do
       echo "PIP Removing $i"
       pip3 uninstall $i
