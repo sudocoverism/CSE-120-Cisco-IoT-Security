@@ -52,6 +52,7 @@ class Ui_MainWindow(object):
         self.buttonPower = QtWidgets.QPushButton(self.centralwidget)
         self.buttonPower.setGeometry(QtCore.QRect(80, 240, 160, 60))
         self.buttonPower.setObjectName("buttonPower")
+        self.buttonPower.setCheckable(False) 
         self.buttonPower.clicked.connect(self.power)
 
         self.buttonInstall = QtWidgets.QPushButton(self.centralwidget)
@@ -105,8 +106,14 @@ class Ui_MainWindow(object):
         self.Thread()
         pyzbar.decoder(rgbImage)
         subprocess.run('./scripts/wgPeerConnection.sh', shell=True)
-
-
+        
+    def power(self):
+        if self.button.isChecked(): 
+            self.button.setStyleSheet("background-color : green")
+            os.system("echo wg-quick up server.conf")
+        else: 
+            self.button.setStyleSheet("background-color : red") 
+            os.system("echo wg-quick down server.conf")
 
     def showKeys(self):
         self.photo.setPixmap(QtGui.QPixmap("scripts/publicKey.png"))
