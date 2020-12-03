@@ -34,3 +34,23 @@ def installDependencies():
     getDependencies()
     os.path.join('./scripts')
     subprocess.run('.\scripts\dependencyInstall.sh', shell=True)
+    
+def uninstallDependencies():
+    os.path.join('./scripts')
+    subprocess.run('sudo chmod 755 ./scripts/dependencyUninstall.sh', shell=True)
+
+def getIPQRCode():
+    os.path.join('./scripts')
+    subprocess.run('sudo chmod 755 ./scripts/ipQRCode.sh', shell=True)
+
+def getPublicKeyQRCode():
+    os.path.join('./scripts')
+    subprocess.run('sudo chmod 755 ./scripts/publicKeyQRCode.sh', shell=True)
+
+def getWGInterfaceConfig():
+    os.path.join('./scripts')
+    subprocess.run('sudo chmod 755 ./scripts/wgInterfaceConfig.sh', shell=True)
+
+def getWGPeerConnection():
+    os.path.join('./scripts')
+    subprocess.run('sudo chmod 755 ./scripts/wgPeerConnection.sh', shell=True)
