@@ -23,19 +23,13 @@ function serverConfig {
  cat ServerInfo/key | qrencode -l L -v 1 -o ServerInfo/keys.png
 }
 
-if [ ! -d "ServerInfo" ]
-then
- echo "VPN directory does not exist."
- echo "Creating VPN directory"
- mkdir ServerInfo database
- echo "Generating public and private keys"
- keyGen
- echo "Getting IP address of device"
- getIP
- echo "Configuring server"
- serverConfig
-else
- echo "VPN directory already exists."
-fi
+echo "Creating VPN directory"
+mkdir ServerInfo database
+echo "Generating public and private keys"
+keyGen
+echo "Getting IP address of device"
+getIP
+echo "Configuring server"
+serverConfig
 
 exit
