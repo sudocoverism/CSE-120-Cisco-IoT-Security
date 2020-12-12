@@ -21,19 +21,13 @@ function clientInterfaceConfig {
  cat ClientInfo/key | qrencode -l L -v 1 -o ClientInfo/keys.png
 }
 
-if [ ! -d "clientInfo" ]
-then
- echo "VPN directory does not exist."
- echo "Creating VPN directory"
- mkdir ClientInfo database
- echo "Generating public and private keys"
- keyGen
- echo "Getting IP address of device"
- getIP
- echo "Configuring client"
- clientConfig
-else
- echo "VPN directory already exists."
-fi
+echo "Creating VPN directory"
+mkdir ClientInfo database
+echo "Generating public and private keys"
+keyGen
+echo "Getting IP address of device"
+getIP
+echo "Configuring client"
+clientConfig
 
 exit
