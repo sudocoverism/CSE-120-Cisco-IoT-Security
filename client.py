@@ -20,10 +20,18 @@ class MainScreen(Screen):
 class ZBarCamScreen(Screen):
     pass
 
-class ZBarCamScreen2(Screen):
-    pass
-
 class P(FloatLayout):
+    def dupekey(self, pubkey):
+        popup = Popup(title='Error',
+                      content=Label(text='Duplicate Public Key: '.join(pubkey)),
+                      size_hint=(None, None), size=(400, 400))
+        popup.open()
+
+    def dupeip(self, ipaddr):
+        popup = Popup(title='Error',
+                      content=Label(text='Duplicate IP Address: '.join(ipaddr)),
+                      size_hint=(None, None), size=(400, 400))
+        popup.open()
     pass
 
 class MainApp(App):
@@ -37,23 +45,28 @@ class MainApp(App):
         pubkey = key[2:-18]
         ipaddr = key[48:-3]
         keytype = [pubkey, ipaddr]
-        keylist = open(os.path.join('ServerInfo' , 'server.conf'), 'r')
-        f = open(os.path.join('ServerInfo', 'tempclient.txt'), 'w')
+        keylist = open(os.path.join('ClientInfo' , 'client.conf'), 'r')
+        f = open(os.path.join('ClientInfo', 'tempclient.txt'), 'w')
         f.write('\nPublicKey=')
         f.write(keys[0])
         f.write('\nEndpoint=')
         f.write(keys[1])
         f.write('/32')
         f.close()
-        subprocess.run('./scripts/serverPeerConnection.sh', shell=True)
+        subprocess.run('./scripts/clientPeerConnection.sh', shell=True)
+
+    #
     def setup(self):
-        subprocess.run('./scripts/serverInterfaceConfig.sh', shell=True)
+        subprocess.run('./scripts/clientInterfaceConfig.sh', shell=True)
+
     def power(self, switchobject, switchvalue):
         if (switchvalue):
             os.system("wg-quick up ./ServerInfo/server.conf")
         else:
             os.system("wg-quick down ./ServerInfo/server.conf")
+
     pass
+
 
 if __name__ == '__main__':
     MainApp().run()
