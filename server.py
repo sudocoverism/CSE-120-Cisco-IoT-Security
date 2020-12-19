@@ -26,7 +26,7 @@ class ZBarCamScreen2(Screen):
 class P(FloatLayout):
     pass
 
-class MainApp(App):
+class ServerApp(App):
     def remove(self, key):
         print("Work in progress")
 
@@ -41,11 +41,11 @@ class MainApp(App):
         f = open(os.path.join('ServerInfo', 'tempclient.txt'), 'w')
         f.write('\nPublicKey=')
         f.write(keys[0])
-        f.write('\nEndpoint=')
+        f.write('\nAllowedIPs=')
         f.write(keys[1])
         f.write('/32')
         f.close()
-        subprocess.run('./scripts/serverPeerConnection.sh', shell=True)
+        subprocess.run('./scripts/serverAddPeerConfig.sh', shell=True)
     def setup(self):
         subprocess.run('./scripts/serverInterfaceConfig.sh', shell=True)
     def power(self, switchobject, switchvalue):
@@ -56,4 +56,4 @@ class MainApp(App):
     pass
 
 if __name__ == '__main__':
-    MainApp().run()
+    ServerApp().run()
