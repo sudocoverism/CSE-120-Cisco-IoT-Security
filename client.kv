@@ -1,0 +1,82 @@
+#:import ZBarCam kivy_garden.zbarcam.ZBarCam
+#:import ZBarSymbol pyzbar.pyzbar.ZBarSymbol
+#:import Image PIL.Image
+
+ScreenManager:
+    id: screen_manager
+    MainScreen:
+        id: main_screen
+        name: 'main'
+        manager: 'screen_manager'
+    ZBarCamScreen:
+        id: zbarcam
+        name: 'camera'
+        manager: 'screen_manager'
+
+<MainScreen>:
+    GridLayout:
+        cols: 2
+        Label:
+            text: 'QRCode: '
+        Image:
+            source: 'ClientInfo/keys.png'
+            size: 110, 110
+            pos: 120, 300
+
+        Button:
+            text: 'Set Up'
+            pos: 120, 240
+            on_press: app.setup()
+
+        GridLayout:
+            cols: 2
+            Button:
+                text: 'Add/Remove Peer'
+                pos: 120, 200
+                on_press: app.root.current = 'camera'
+
+        GridLayout:
+            cols: 2
+            Label:
+                text: 'IP Address: '
+            Button:
+                text: 'Show IP Address'
+            Label:
+                text: 'Public Key: '
+            Button:
+                text: 'Show Public Key'
+
+        RelativeLayout:
+            Label:
+                text: 'Power'
+            Switch:
+                active: False
+                on_active: app.power(self, self.active)
+
+<ZBarCamScreen>:
+    qrcode : qr_code
+    BoxLayout:
+        orientation: 'vertical'
+        ZBarCam:
+            id: zbarcam
+            # optional, by default checks all types
+            code_types: ZBarSymbol.QRCODE, ZBarSymbol.EAN13
+
+        Label:
+            id: qr_code
+            size_hint: None, None
+            size: self.texture_size[0], 50
+            text: ''.join([str(symbol.data) for symbol in zbarcam.symbols])
+
+        Button:
+            text: 'Add'
+            on_press: app.save(qr_code.text)
+        Button:
+            text: 'Remove'
+            on_press: app.remove(qr_code.text)
+        Button:
+            text: 'Back'
+            on_press: app.root.current = 'main'
+
+
+<P>:
