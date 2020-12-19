@@ -5,8 +5,8 @@ function addPeer {
   # echo the client's public key file into the server.conf
   # echo the client's IP address file into the server.conf
   #echo "\n" >> ServerInfo/server.conf
-  printf "\n[Peer}" >> ServerInfo
-  cat tempclient.txt >> ServerInfo/server.conf
+  printf "\n[Peer]" >> ServerInfo/server.conf
+  cat ServerInfo/tempclient.txt >> ServerInfo/server.conf
 }
 
 if [ -f "ServerInfo/server.conf" ]
