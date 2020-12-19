@@ -6,6 +6,7 @@ from kivy.properties import ObjectProperty
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.popup import Popup
+from kivy.lang import builder
 
 
 #RPI display is 320x480p
@@ -34,7 +35,7 @@ class P(FloatLayout):
         popup.open()
     pass
 
-class MainApp(App):
+class ClientApp(App):
     def remove(self, key):
         print("Work in progress")
 
@@ -51,9 +52,10 @@ class MainApp(App):
         f.write(keys[0])
         f.write('\nEndpoint=')
         f.write(keys[1])
-        f.write('/32')
+        #only difference between client and server main.py
+        f.write('/24:51820')
         f.close()
-        subprocess.run('./scripts/clientPeerConnection.sh', shell=True)
+        subprocess.run('./scripts/clientAddPeerConfig.sh', shell=True)
 
     #
     def setup(self):
@@ -61,12 +63,12 @@ class MainApp(App):
 
     def power(self, switchobject, switchvalue):
         if (switchvalue):
-            os.system("wg-quick up ./ServerInfo/server.conf")
+            os.system("wg-quick up ./ClientInfo/client.conf")
         else:
-            os.system("wg-quick down ./ServerInfo/server.conf")
+            os.system("wg-quick down ./ClientInfo/client.conf")
 
     pass
 
 
 if __name__ == '__main__':
-    MainApp().run()
+    ClientApp().run()
